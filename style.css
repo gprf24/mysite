@@ -1,0 +1,73 @@
+/* Общие стили */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Навбар */
+.navbar {
+  background: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+}
+
+/* Бургер */
+.burger {
+  font-size: 24px;
+  cursor: pointer;
+  display: block;
+}
+
+/* Ссылки */
+.nav-links {
+  list-style: none;
+  display: none;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  background: #444;
+}
+
+.nav-links li {
+  border-top: 1px solid #555;
+}
+
+.nav-links li a {
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links li a:hover {
+  background: #666;
+}
+
+/* Контент */
+main {
+  padding: 20px;
+}
+
+/* Десктоп */
+@media (min-width: 600px) {
+  .burger {
+    display: none;
+  }
+  .nav-links {
+    display: flex !important;
+    flex-direction: row;
+    background: none;
+  }
+  .nav-links li {
+    border: none;
+  }
+  .nav-links li a {
+    padding: 10px 15px;
+  }
+}
