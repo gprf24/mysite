@@ -125,7 +125,9 @@ body {
   /* но не шире 400px */
   box-shadow: var(--shadow);
 }
-
+.nav-links.open {
+  display: block;
+}
 .nav-links li {
   margin: 0;
 }
