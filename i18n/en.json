@@ -6,6 +6,10 @@
   "nav.projects": "Projects",
   "nav.contact": "Contact",
 
+  "nav.lang.en": "Switch to English",
+  "nav.lang.de": "Switch to German",
+  "nav.lang.ru": "Switch to Russian",
+
   "hero.greeting": "Hello, I’m",
   "hero.role": "Data & Analytics with a focus on Power BI, Dashboards, and ML.",
   "hero.cta": "See my projects",

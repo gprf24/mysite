@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title data-i18n="site.title">Aleksandr Ditkin — Portfolio</title>
   <meta name="description" content="Personal site of Aleksandr Ditkin: about, skills, projects, and contact." />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0d10">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f9fc">
 
-  <!-- Favicon -->
-  <link rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000'/%3E%3Ctext x='50' y='58' font-size='50' text-anchor='middle' fill='white' font-family='Arial'%3EA%3C/text%3E%3C/svg%3E">
+  <!-- Favicons (place files under /img/) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
 
-  <!-- auto-versioned CSS + JS -->
+  <!-- Auto-versioned CSS & JS to avoid cache issues -->
   <script>
     const version = new Date().toISOString().slice(0, 7).replace('-', ''); // YYYYMM
     document.write(`<link rel="stylesheet" href="style.css?v=${version}">`);
@@ -21,8 +23,8 @@
 
 <body>
   <!-- Header / Navbar -->
-  <header class="navbar">
-    <a class="brand" href="#hero" aria-label="Home">
+  <header class="navbar" id="navbar">
+    <a class="brand" href="#hero" aria-label="Home (no smooth scroll)">
       <img data-config-src="avatar" alt="avatar" class="brand-logo">
       <span class="brand-text" data-config="fullName">Aleksandr Ditkin</span>
     </a>
@@ -35,17 +37,17 @@
         <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         <li class="divider" aria-hidden="true"></li>
-        <li class="lang">
-          <button class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
-          <button class="lang-btn" data-lang="de" aria-label="Wechsel zu Deutsch">DE</button>
-          <button class="lang-btn" data-lang="ru" aria-label="Переключить на русский">RU</button>
-        </li>
-        <li>
+        <li class="controls">
+          <!-- language buttons also set aria-label via i18n attr -->
+          <button class="lang-btn" data-lang="en" data-i18n="nav.lang.en" data-i18n-attr="aria-label">EN</button>
+          <button class="lang-btn" data-lang="de" data-i18n="nav.lang.de" data-i18n-attr="aria-label">DE</button>
+          <button class="lang-btn" data-lang="ru" data-i18n="nav.lang.ru" data-i18n-attr="aria-label">RU</button>
           <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌓</button>
         </li>
       </ul>
     </nav>
   </header>
+
   <!-- Hero -->
   <section id="hero" class="section hero">
     <div class="container hero-grid">
@@ -66,30 +68,18 @@
       <div class="hero-card" aria-hidden="true">
         <div class="card-glow"></div>
         <div class="hero-stats">
-
-
-          <!-- Card 2 (BI) -->
           <div class="stat-card icon">
             <span class="stat-num">BI</span>
             <span class="stat-label" data-i18n="hero.stats.domain">Power BI & Data</span>
-            <!-- онлайн-иконка Power BI -->
             <img class="stat-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
               alt="Power BI logo" loading="lazy" decoding="async" />
           </div>
-
-          <!-- Card 3 -->
-          <!-- <div class="stat-card">
-            <span class="stat-num">ML</span>
-            <span class="stat-label" data-i18n="hero.stats.focus">Models & Pipelines</span>
-          </div> -->
           <div class="stat-card icon">
             <span class="stat-num">ML</span>
             <span class="stat-label" data-i18n="hero.stats.focus">Models & Pipelines</span>
             <img class="stat-icon" src="https://www.svgrepo.com/show/339333/machine-learning-06.svg" alt="ML logo"
               loading="lazy" decoding="async" />
           </div>
-
-          <!-- Card 1 -->
           <div class="stat-card icon">
             <span class="stat-num" data-config="statLanguages">3</span>
             <span class="stat-label" data-i18n="hero.stats.languages">Languages</span>
@@ -100,7 +90,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- About -->
   <section id="about" class="section">
@@ -125,26 +114,25 @@
 
       <div class="about-card">
         <div class="profile">
-
           <div class="profile-avatar">
-            <!-- можно добавить data-fullsrc для версии побольше; если нет — возьмём src -->
             <img id="profile-img" data-config-src="avatar" data-fullsrc="" alt="portrait">
           </div>
-
-
           <div class="profile-info">
             <div class="profile-name" data-config="fullName">Aleksandr Ditkin</div>
             <div class="profile-role" data-i18n="about.role">IT & Operations · Logistics</div>
           </div>
         </div>
         <div class="profile-list">
-          <div><span data-i18n="about.location.label">Location:</span> <span data-config="location">Hamburg, DE</span>
-          </div>
+          <div><span data-i18n="about.location.label">Location:</span> <span data-config="location">Hamburg, DE</span></div>
           <div><span data-i18n="about.langs.label">Languages:</span> <span data-config="langs">EN · DE · RU</span></div>
-          <div><span data-i18n="about.email.label">Email:</span> <a data-config-href="email" data-config="emailText"
-              href="mailto:">ditkincontact@gmail.com</a></div>
-          <div><span data-i18n="about.linkedin.label">LinkedIn:</span> <a data-config-href="linkedin" target="_blank"
-              rel="noreferrer" data-config="linkedinText">/aleksandrditkin</a></div>
+          <div>
+            <span data-i18n="about.email.label">Email:</span>
+            <a data-config-href="email" data-config="emailText" data-i18n-attr="aria-label" href="mailto:">ditkincontact@gmail.com</a>
+          </div>
+          <div>
+            <span data-i18n="about.linkedin.label">LinkedIn:</span>
+            <a data-config-href="linkedin" target="_blank" rel="noreferrer" data-config="linkedinText">/aleksandrditkin</a>
+          </div>
         </div>
       </div>
     </div>
@@ -157,27 +145,19 @@
       <div class="skills-grid">
         <article class="skill">
           <h3 data-i18n="skills.bi.title">Power BI & Analytics</h3>
-          <p data-i18n="skills.bi.desc">
-            DAX, Power Query (M), star schema, measures, role-level security, performance tuning.
-          </p>
+          <p data-i18n="skills.bi.desc">DAX, Power Query (M), star schema, measures, role-level security, performance tuning.</p>
         </article>
         <article class="skill">
           <h3 data-i18n="skills.de.title">Data Engineering</h3>
-          <p data-i18n="skills.de.desc">
-            ETL with Python & SQL, data validation, reproducible pipelines, orchestration basics.
-          </p>
+          <p data-i18n="skills.de.desc">ETL with Python & SQL, data validation, reproducible pipelines, orchestration basics.</p>
         </article>
         <article class="skill">
           <h3 data-i18n="skills.ml.title">Machine Learning</h3>
-          <p data-i18n="skills.ml.desc">
-            Feature engineering, time-series segmentation, clustering & MLPs, evaluation.
-          </p>
+          <p data-i18n="skills.ml.desc">Feature engineering, time-series segmentation, clustering & MLPs, evaluation.</p>
         </article>
         <article class="skill">
           <h3 data-i18n="skills.fe.title">Frontend</h3>
-          <p data-i18n="skills.fe.desc">
-            Clean HTML/CSS/JS, interactive dashboards (Streamlit), UX details & accessibility.
-          </p>
+          <p data-i18n="skills.fe.desc">Clean HTML/CSS/JS, interactive dashboards (Streamlit), UX details & accessibility.</p>
         </article>
       </div>
     </div>
@@ -188,31 +168,22 @@
     <div class="container">
       <h2 data-i18n="projects.title">Selected Projects</h2>
       <div class="projects-grid">
-        <!-- Power BI first -->
         <article class="project-card">
           <div class="project-badge">BI</div>
           <h3 data-i18n="projects.pbi.title">Operations Dashboards (Power BI)</h3>
-          <p data-i18n="projects.pbi.desc">
-            End-to-end KPIs: order flow, SLAs, capacity & routing; DAX measures, row-level security, refresh.
-          </p>
+          <p data-i18n="projects.pbi.desc">End-to-end KPIs: order flow, SLAs, capacity & routing; DAX measures, row-level security, refresh.</p>
           <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link">View</a>
         </article>
-
         <article class="project-card">
           <div class="project-badge">ML</div>
           <h3 data-i18n="projects.p2.title">Energy Model for e-Trucks</h3>
-          <p data-i18n="projects.p2.desc">
-            Route-enriched consumption modeling with time-series features and domain metrics.
-          </p>
+          <p data-i18n="projects.p2.desc">Route-enriched consumption modeling with time-series features and domain metrics.</p>
           <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link">View</a>
         </article>
-
         <article class="project-card">
           <div class="project-badge">IoT</div>
           <h3 data-i18n="projects.p3.title">EV3 Classifier</h3>
-          <p data-i18n="projects.p3.desc">
-            Real-time shape classification on LEGO EV3 with custom feature extraction and MLP inference.
-          </p>
+          <p data-i18n="projects.p3.desc">Real-time shape classification on LEGO EV3 with custom feature extraction and MLP inference.</p>
           <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link">View</a>
         </article>
       </div>
@@ -224,9 +195,7 @@
     <div class="container grid-2">
       <div>
         <h2 data-i18n="contact.title">Get in touch</h2>
-        <p data-i18n="contact.text">
-          The quickest way is email. I’m open to collaboration, internships, and working-student roles.
-        </p>
+        <p data-i18n="contact.text">The quickest way is email. I’m open to collaboration, internships, and working-student roles.</p>
         <a class="btn primary" href="#" data-config-href="mailto" data-i18n="contact.emailCta">Email me</a>
       </div>
 
@@ -240,9 +209,7 @@
           <textarea name="message" rows="4" required></textarea>
         </label>
         <button class="btn ghost" type="button" data-i18n="contact.send">Send</button>
-        <p class="form-note" data-i18n="contact.note">
-          Note: This is a demo. For a real form, a small backend is needed.
-        </p>
+        <p class="form-note" data-i18n="contact.note">Note: This is a demo. For a real form, a small backend is needed.</p>
       </form>
     </div>
   </section>
@@ -254,5 +221,4 @@
     </div>
   </footer>
 </body>
-
 </html>
