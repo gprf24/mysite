@@ -5,7 +5,7 @@
   --text:#e8edf2;
   --muted:#9aa6b2;
   --card:#121821;
-  --brand:#7aa2f7;
+  --brand:#5b71ef;
   --brand-2:#c099ff;
   --border:#1d2632;
   --shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -16,8 +16,8 @@
   --text:#0f1720;
   --muted:#5b6b7c;
   --card:#ffffff;
-  --brand:#3b82f6;
-  --brand-2:#7c3aed;
+  --brand:#5b71ef;
+  --brand-2:#ffc7b1;
   --border:#e6eef6;
   --shadow: 0 10px 30px rgba(0,0,0,.08);
 }
@@ -61,7 +61,7 @@ body{
 .brand-logo {
   width: 36px;
   height: 36px;
-  border-radius: 12px; /* скругление, можно 50% для круга */
+  border-radius: 50%; 
   object-fit: cover;
   box-shadow: var(--shadow);
 }
@@ -102,6 +102,7 @@ body{
 }
 
 /* --------- Hero --------- */
+/* --------- Hero --------- */
 .hero{
   padding-top:64px;
   background:
@@ -116,7 +117,10 @@ body{
 }
 .title{ font-size: clamp(28px, 4vw, 44px); margin:0 0 8px }
 .subtitle{ color:var(--muted); margin:0 0 18px }
-.accent{ background: linear-gradient(135deg, var(--brand), var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent }
+.accent{
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent
+}
 
 .hero-cta{ display:flex; gap:12px; flex-wrap:wrap }
 .btn{
@@ -127,6 +131,7 @@ body{
 .btn.primary{ background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; border:none }
 .btn.ghost{ background: transparent }
 
+/* карточка справа */
 .hero-card{
   position:relative; border:1px solid var(--border); border-radius:18px; padding:18px; background:var(--card);
   box-shadow: var(--shadow);
@@ -136,10 +141,63 @@ body{
   background: conic-gradient(from 180deg at 50% 50%, rgba(122,162,247,.2), rgba(192,153,255,.2), transparent 30%);
   filter: blur(16px); opacity:.8; z-index:-1;
 }
-.hero-stats{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px }
-.stat{ text-align:center; background:var(--bg-alt); border:1px solid var(--border); border-radius:14px; padding:14px }
-.stat-num{ font-weight:800; font-size:18px }
-.stat-label{ font-size:12px; color:var(--muted) }
+
+/* сетка стат-карточек */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 1rem;
+}
+
+/* карточка-стат */
+.stat-card {
+  background: var(--card);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+.stat-num {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* --- BI спец-эффект: онлайн SVG поверх карточки при hover --- */
+.stat-card.icon { overflow: hidden; }
+.stat-card.icon .stat-icon{
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;       /* не перехватывает курсор */
+  transition: opacity .3s ease;
+  filter: saturate(120%);
+}
+.stat-card.icon:hover .stat-icon{
+  opacity: .22;               /* водяной знак при наведении */
+}
+
+/* (опционально) анимации помягче, если пользователь против motion */
+@media (prefers-reduced-motion: reduce){
+  .stat-card, .stat-card.icon .stat-icon { transition: none; }
+}
+
 
 /* --------- About --------- */
 .grid-2{ display:grid; gap:28px }
@@ -151,13 +209,16 @@ body{
   border:1px solid var(--border); border-radius:18px; padding:18px; background:var(--card); box-shadow:var(--shadow)
 }
 .profile{ display:flex; align-items:center; gap:12px; margin-bottom:12px }
+/* обычное состояние */
 .profile-avatar {
-  width: 64px; /* чуть больше, чем в header */
-  height: 64px;
-  border-radius: 50%; /* круг */
-  overflow: hidden;   /* чтобы картинка не вылезала */
+  width: 89px;
+  height: 89px;
+  border-radius: 50%;
+  overflow: hidden;
   flex-shrink: 0;
   box-shadow: var(--shadow);
+  cursor: pointer; /* курсор "рука" */
+  transition: all 0.3s ease;
 }
 
 .profile-avatar img {
@@ -165,7 +226,54 @@ body{
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.3s ease;
 }
+
+/* увеличенное состояние */
+.profile-avatar.expanded {
+  position: relative;
+  width: 200px;   /* размер побольше */
+  height: 200px;
+  border-radius: 12px; /* можно не круглый */
+  z-index: 20;    /* поверх всего */
+}
+
+.profile-avatar.expanded img {
+  transform: scale(1.05); /* лёгкий зум для эффекта */
+}
+/* ——— Lightbox overlay ——— */
+.lb-backdrop{
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.65);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .2s ease;
+}
+.lb-backdrop.open{ opacity: 1; pointer-events: auto; }
+
+.lb-dialog{
+  position: relative; max-width: min(90vw, 900px); max-height: min(90vh, 900px);
+  border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  overflow: hidden; background: #000; /* фон под изображением */
+}
+
+.lb-img{
+  display: block; width: 100%; height: 100%; object-fit: contain;
+  background: #000;
+}
+
+.lb-close{
+  position: absolute; top: 8px; right: 8px;
+  width: 36px; height: 36px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.45); color: #fff;
+  cursor: pointer; font-size: 18px; line-height: 1;
+  transition: transform .1s ease, background .2s ease;
+}
+.lb-close:hover{ background: rgba(0,0,0,.65); }
+.lb-close:active{ transform: scale(.96); }
+
+/* курсор-рука на аватарке */
+.profile-avatar{ cursor: zoom-in; }
 
 .profile-name{ font-weight:700 }
 .profile-role{ color:var(--muted) }
@@ -219,3 +327,32 @@ body{
 a:focus, button:focus, input:focus, textarea:focus{
   outline:2px solid var(--brand); outline-offset:2px;
 }
+/* --- i18n minor: LinkedIn label color inherits */
+.profile-list a { color: inherit; }
+
+/* --- Language button: flag-on-hover */
+.lang-btn{
+  position: relative;
+  overflow: hidden;
+}
+.lang-btn::after{
+  content: "";
+  position: absolute; inset: 6px;
+  background-size: cover; background-position: center;
+  border-radius: 6px; opacity: 0; transition: opacity .15s ease;
+}
+/* Flags (SVG data URIs) */
+.lang-btn[data-lang="en"]::after{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='a'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath fill='%23012a87' d='M0 0h60v30H0z'/%3E%3Cpath stroke='%23fff' stroke-width='6' d='M0 0l60 30m0-30L0 30'/%3E%3Cpath stroke='%23c8102e' stroke-width='4' d='M0 0l60 30m0-30L0 30'/%3E%3Cpath stroke='%23fff' stroke-width='10' d='M30 0v30M0 15h60'/%3E%3Cpath stroke='%23c8102e' stroke-width='6' d='M30 0v30M0 15h60'/%3E%3C/g%3E%3C/svg%3E");
+}
+/* Germany flag (fixed: %23FFCE00) */
+.lang-btn[data-lang="de"]::after{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'%3E%3Cpath fill='%23000000' d='M0 0h5v1H0z'/%3E%3Cpath fill='%23DD0000' d='M0 1h5v1H0z'/%3E%3Cpath fill='%23FFCE00' d='M0 2h5v1H0z'/%3E%3C/svg%3E");
+}
+
+.lang-btn[data-lang="ru"]::after{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Cpath fill='%23fff' d='M0 0h3v2H0z'/%3E%3Cpath fill='%23003f9a' d='M0 .666h3V2H0z'/%3E%3Cpath fill='%23d52b1e' d='M0 1.333h3V2H0z'/%3E%3C/svg%3E");
+}
+/* On hover: hide text, show flag */
+.lang-btn:hover{ color: transparent; }
+.lang-btn:hover::after{ opacity: 1; }
