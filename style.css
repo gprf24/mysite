@@ -187,11 +187,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: .2px;
 }
 
-.nav {
+/* .nav {
   display: flex;
   align-items: center;
   gap: 12px;
-}
+} */
 
 .burger {
   font-size: 24px;
@@ -215,7 +215,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   position: absolute;
   right: 10px;
   top: 56px;
-  width: min(400px, 50vw);
+  width: min(220px, 50vw);
   display: none;
   border-radius: var(--r-xl);
   /* denser, less see-through glass */
@@ -277,18 +277,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   width: 100%;
   text-align: left;
   display: block;
-  padding: 10px 12px;
+  padding: 14px 14px;
+
   border-radius: var(--r-md);
   color: var(--text);
   background: none;
   border: none;
   cursor: pointer;
-  transition: background var(--t-fast) ease, transform var(--t-fast) ease;
+  line-height: 1.1;
+ 
+  transition: background var(--t-fast) ease, transform var(--t-fast) ease, box-shadow var(--t-fast) ease;
 }
 
 .nav-links a:hover, .nav-links button:hover {
-  background: rgba(255, 255, 255, .06);
+  margin: 0;
+  background: rgba(255, 255, 255, .01);
+  box-shadow: 0 8px 8px var(--ring);
 }
+
 
 .nav-links .divider {
   height: 1px;
@@ -379,11 +385,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     min-width: auto;
   }
 
-  .nav-links a, .nav-links button {
-    width: auto;
-    text-align: center;
-    padding: 8px 12px;
-  }
+
 }
 
 /* --------- Hero --------- */

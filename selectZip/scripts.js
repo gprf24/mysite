@@ -7,11 +7,6 @@ const baseLayers = {
     attribution: '&copy; OpenStreetMap contributors'
   }),
 
-  "🇩🇪 OSM DE": L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '&copy; OpenStreetMap-Mitwirkende'
-  }),
-
   "🌤️ Carto Positron (Light)": L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -59,7 +54,7 @@ const baseLayers = {
 const map = L.map('map', {
   center: [51.163, 10.447],      // Germany center
   zoom: 6,                       // initial zoom level
-  layers: [baseLayers["🇩🇪 OSM DE"]] // default basemap
+  layers: [baseLayers["🌚 Esri Gray (Dark)"]] // default basemap
 });
 
 // =============================================
@@ -417,4 +412,11 @@ document.getElementById('togglePanel').addEventListener('click', () => {
 document.getElementById('mapDim')?.addEventListener('click', () => {
   document.body.classList.remove('panel-open');
   document.querySelector('.panel')?.classList.remove('open');
+});
+// Close on ESC
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.body.classList.remove('panel-open');
+    document.querySelector('.panel')?.classList.remove('open');
+  }
 });
