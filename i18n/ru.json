@@ -1,15 +1,12 @@
 {
   "site.title": "Aleksandr Ditkin — Портфолио",
-
   "nav.about": "Обо мне",
   "nav.skills": "Навыки",
   "nav.projects": "Проекты",
   "nav.contact": "Контакты",
-
   "nav.lang.en": "Переключить на английский",
   "nav.lang.de": "Переключить на немецкий",
   "nav.lang.ru": "Переключить на русский",
-
   "hero.greeting": "Привет, я",
   "hero.role": "Data & Analytics с акцентом на Power BI, дашборды и ML.",
   "hero.cta": "Смотреть проекты",
@@ -17,7 +14,6 @@
   "hero.stats.languages": "Языки",
   "hero.stats.domain": "Power BI и данные",
   "hero.stats.focus": "Модели и пайплайны",
-
   "about.title": "Обо мне",
   "about.text1": "Создаю решения на основе данных с акцентом на дашборды Power BI, DAX/Power Query и чистые модели данных. End-to-end: от надежной ETL (Python, SQL) до метрик и понятных визуализаций.",
   "about.text2": "Недавно делал операционные дашборды (Power BI), моделировал энергопотребление электрофур и строил надежные конвейеры данных для быстрых решений.",
@@ -26,11 +22,9 @@
   "about.langs.label": "Языки:",
   "about.email.label": "Email:",
   "about.linkedin.label": "LinkedIn:",
-
   "about.stack1": "Power BI · DAX · Power Query · Моделирование данных",
   "about.stack2": "Python · Pandas · NumPy · scikit-learn",
   "about.stack3": "PostgreSQL · SQL · Streamlit · Основы фронтенда",
-
   "skills.title": "Навыки",
   "skills.bi.title": "Power BI и аналитика",
   "skills.bi.desc": "DAX, Power Query (M), звездная схема, меры, RLS, оптимизация производительности.",
@@ -40,7 +34,6 @@
   "skills.ml.desc": "Feature engineering, сегментация временных рядов, кластеризация и MLP, оценка.",
   "skills.fe.title": "Фронтенд",
   "skills.fe.desc": "Чистые HTML/CSS/JS, интерактивные дашборды (Streamlit), UX и доступность.",
-
   "projects.title": "Выбранные проекты",
   "projects.pbi.title": "Операционные дашборды (Power BI)",
   "projects.pbi.desc": "End-to-end KPI: поток заказов, SLA, мощность и маршрутизация; меры DAX, RLS, обновления.",
@@ -48,8 +41,9 @@
   "projects.p2.desc": "Моделирование с учетом маршрута и признаков временных рядов.",
   "projects.p3.title": "Классификатор EV3",
   "projects.p3.desc": "Распознавание форм в реальном времени на LEGO EV3 с кастомными признаками и MLP.",
+  "projects.p4.title": "Выбери индекс",
+  "projects.p4.desc": "Интерактивное веб-приложение для визуализации и управления зонами немецких почтовых индексов. Позволяет выбирать PLZ-области на карте, создавать регионы и экспортировать их в JSON или Excel.",
   "projects.link": "Открыть",
-
   "contact.title": "Связаться",
   "contact.text": "Быстрее всего — email. Открыт к сотрудничеству, стажировкам и позициям Werkstudent.",
   "contact.emailCta": "Написать письмо",
@@ -57,6 +51,5 @@
   "contact.messageLabel": "Сообщение",
   "contact.send": "Отправить",
   "contact.note": "Примечание: это демо. Для реальной формы нужен небольшой бэкенд.",
-
   "footer.rights": "Все права защищены."
 }

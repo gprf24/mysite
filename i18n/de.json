@@ -1,15 +1,12 @@
 {
   "site.title": "Aleksandr Ditkin — Portfolio",
-
   "nav.about": "Über mich",
   "nav.skills": "Fähigkeiten",
   "nav.projects": "Projekte",
   "nav.contact": "Kontakt",
-
   "nav.lang.en": "Auf Englisch umschalten",
   "nav.lang.de": "Auf Deutsch umschalten",
   "nav.lang.ru": "Auf Russisch umschalten",
-
   "hero.greeting": "Hallo, ich bin",
   "hero.role": "Data & Analytics mit Fokus auf Power BI, Dashboards und ML.",
   "hero.cta": "Meine Projekte ansehen",
@@ -17,7 +14,6 @@
   "hero.stats.languages": "Sprachen",
   "hero.stats.domain": "Power BI & Daten",
   "hero.stats.focus": "Modelle & Pipelines",
-
   "about.title": "Über mich",
   "about.text1": "Ich baue datengetriebene Lösungen mit starkem Fokus auf Power-BI-Dashboards, DAX/Power Query und saubere Datenmodelle. End-to-end: von robuster ETL (Python, SQL) bis zur Metrikgestaltung und präsentationsreifen Visuals.",
   "about.text2": "Zuletzt habe ich Operations-Dashboards (Power BI) geliefert, den Energieverbrauch von E-Lkw modelliert und zuverlässige Datenpipelines aufgebaut, die tägliche Entscheidungen beschleunigen.",
@@ -26,11 +22,9 @@
   "about.langs.label": "Sprachen:",
   "about.email.label": "E-Mail:",
   "about.linkedin.label": "LinkedIn:",
-
   "about.stack1": "Power BI · DAX · Power Query · Datenmodellierung",
   "about.stack2": "Python · Pandas · NumPy · scikit-learn",
   "about.stack3": "PostgreSQL · SQL · Streamlit · Frontend-Basics",
-
   "skills.title": "Fähigkeiten",
   "skills.bi.title": "Power BI & Analytics",
   "skills.bi.desc": "DAX, Power Query (M), Sternschema, Measures, Row-Level Security, Performance-Tuning.",
@@ -40,7 +34,6 @@
   "skills.ml.desc": "Feature Engineering, Zeitreihen-Segmentierung, Clustering & MLPs, Evaluation.",
   "skills.fe.title": "Frontend",
   "skills.fe.desc": "Sauberes HTML/CSS/JS, interaktive Dashboards (Streamlit), UX-Details & Accessibility.",
-
   "projects.title": "Ausgewählte Projekte",
   "projects.pbi.title": "Operations-Dashboards (Power BI)",
   "projects.pbi.desc": "End-to-End-KPIs: Auftragsfluss, SLAs, Kapazität & Routing; DAX-Measures, Row-Level Security, Refresh.",
@@ -48,8 +41,9 @@
   "projects.p2.desc": "Routenangereichertes Verbrauchsmodell mit Zeitreihenfeatures und Domänenmetriken.",
   "projects.p3.title": "EV3-Klassifikator",
   "projects.p3.desc": "Echtzeit-Formerkennung auf LEGO EV3 mit eigener Feature-Extraktion und MLP-Inferenz.",
+  "projects.p4.title": "Select PLZ",
+  "projects.p4.desc": "Interaktive Web-App zur Visualisierung und Verwaltung deutscher PLZ-Regionen. Nutzer können Postleitzahlen auf der Karte auswählen, Regionen erstellen und als JSON oder Excel exportieren.",
   "projects.link": "Ansehen",
-
   "contact.title": "Kontakt aufnehmen",
   "contact.text": "Der schnellste Weg ist E-Mail. Offen für Zusammenarbeit, Praktika und Werkstudentenstellen.",
   "contact.emailCta": "E-Mail schreiben",
@@ -57,6 +51,5 @@
   "contact.messageLabel": "Nachricht",
   "contact.send": "Senden",
   "contact.note": "Hinweis: Dies ist eine Demo. Für ein echtes Formular ist ein kleines Backend nötig.",
-
   "footer.rights": "Alle Rechte vorbehalten."
 }

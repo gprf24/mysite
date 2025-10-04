@@ -21,7 +21,7 @@
   --border: rgba(255, 255, 255, 0.12);
   --shadow: 0 20px 50px rgba(0, 0, 0, .45);
   --navbar-bg: rgba(10, 12, 15, 0.45);
-
+  --menu-bg: rgba(14, 16, 22, 0.92);
   /* подсветка и бликовые штрихи */
   --ring: rgba(100, 125, 255, 0.25);
   --ring-strong: rgba(100, 125, 255, 0.45);
@@ -49,6 +49,7 @@
   --border: rgba(15, 23, 32, 0.08);
   --shadow: 0 14px 40px rgba(0, 0, 0, .12);
   --navbar-bg: rgba(255, 255, 255, 0.55);
+  --menu-bg: rgba(255, 255, 255, 0.92);
 }
 
 *,
@@ -217,11 +218,51 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   width: min(400px, 50vw);
   display: none;
   border-radius: var(--r-xl);
-  background: var(--glass);
-  backdrop-filter: saturate(160%) blur(18px);
-  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  /* denser, less see-through glass */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)) padding-box,
+    var(--menu-bg);
+  /* ↑ was 0.82 */
+
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+  /* prevent blending with behind content */
+  isolation: isolate;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
+}
+
+/* soft internal gradient highlights */
+.nav-links::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(140% 120% at 100% 0, rgba(91, 113, 239, .20), transparent 60%),
+    radial-gradient(120% 100% at 0 100%, rgba(192, 153, 255, .16), transparent 60%);
+  opacity: .35;
+}
+
+/* subtle noise texture for realistic glass */
+.nav-links::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: .12;
+}
+
+/* near-opaque dropdown variant */
+.nav-links.solid {
+  background: rgba(14, 16, 22, 0.96);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
 }
 
 .nav-links.open {
