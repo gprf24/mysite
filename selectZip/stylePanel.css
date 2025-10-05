@@ -229,7 +229,7 @@ body.panel-open .panel-toggle {
 /* Show the dim overlay whenever the panel is open */
 body.panel-open .map-dim {
   /* opacity: 1; */
-  pointer-events: auto;
+  pointer-events: none;
   /* click to close */
 }
 
@@ -510,3 +510,44 @@ input[type='file']::file-selector-button:active {
 /* @media (max-width: 640px) {
   :root { --sidebar-w: min(86vw, 420px); }
 } */
+@media (max-height: 700px) {
+  .panel {
+    overflow-y: auto;
+    overflow-x: hidden;         /* 🚫 disable horizontal scrolling */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 80px;
+  }
+
+  /* Prevent child elements from accidentally exceeding width */
+  .panel * {
+    max-width: 100%;           /* keeps elements within panel width */
+    box-sizing: border-box;
+  }
+}
+/* ===== Custom Scrollbar (modern glass style) ===== */
+.panel::-webkit-scrollbar {
+  width: 8px;                /* scrollbar width */
+}
+
+.panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05); /* track background */
+  border-radius: 10px;
+}
+
+.panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25); /* thumb color */
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+.panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35); /* brighter on hover */
+}
+
+/* Firefox (uses simpler syntax) */
+.panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
+}
