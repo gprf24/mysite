@@ -229,7 +229,7 @@ body.panel-open .panel-toggle {
 /* Show the dim overlay whenever the panel is open */
 body.panel-open .map-dim {
   /* opacity: 1; */
-  pointer-events: none;
+  pointer-events: auto;
   /* click to close */
 }
 
@@ -503,6 +503,7 @@ input[type='file']::file-selector-button:active {
   :root {
     --sidebar-w: 320px;
   }
+  .map-dim { display: none; }
 }
 
 /* Very small screens: ensure the panel fits nicely */

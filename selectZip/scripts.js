@@ -54,7 +54,7 @@ const baseLayers = {
 const map = L.map('map', {
   center: [51.163, 10.447],      // Germany center
   zoom: 6,                       // initial zoom level
-  layers: [baseLayers["🌚 Esri Gray (Dark)"]] // default basemap
+  layers: [baseLayers["🗺️ OSM Standard"]] // default basemap
 });
 
 // =============================================
@@ -404,19 +404,48 @@ document.getElementById('btnLasso').onclick = () => {
     document.getElementById('btnLasso').textContent = 'Lasso deaktivieren';
   }
 };
-document.getElementById('togglePanel').addEventListener('click', () => {
-  document.body.classList.toggle('panel-open');
-  document.querySelector('.panel')?.classList.toggle('open');
+// Cache DOM elements
+const body   = document.body;
+const toggle = document.getElementById('togglePanel');
+const dim    = document.getElementById('mapDim');
+
+// --- Toggle sidebar visibility ---
+toggle?.addEventListener('click', () => {
+  body.classList.toggle('panel-open');
 });
 
-document.getElementById('mapDim')?.addEventListener('click', () => {
-  document.body.classList.remove('panel-open');
-  document.querySelector('.panel')?.classList.remove('open');
+// --- Close sidebar when clicking on dim background ---
+dim?.addEventListener('click', () => {
+  body.classList.remove('panel-open');
 });
-// Close on ESC
+
+// --- Close sidebar with the ESC key ---
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    document.body.classList.remove('panel-open');
-    document.querySelector('.panel')?.classList.remove('open');
+    body.classList.remove('panel-open');
   }
 });
+
+// ===============================
+// Default state based on viewport width
+// - Desktop (>=900px): sidebar visible by default
+// - Mobile (<900px): sidebar hidden by default
+// ===============================
+
+const mq = window.matchMedia('(min-width: 900px)');
+
+function applyPanelDefault() {
+  if (mq.matches) {
+    // Desktop: keep panel open
+    body.classList.add('panel-open');
+  } else {
+    // Mobile: start closed
+    body.classList.remove('panel-open');
+  }
+}
+
+// Run once on load
+applyPanelDefault();
+
+// Re-apply automatically when window is resized across breakpoint
+mq.addEventListener('change', applyPanelDefault);
