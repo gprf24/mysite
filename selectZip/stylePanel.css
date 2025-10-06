@@ -201,7 +201,43 @@ body.panel-open .panel {
   transform: translateY(1px);
   background: rgba(0, 0, 0, 0.1);
 }
+.goHome-toggle {
+  position: fixed;
+  top: 12px;
+  left: 60px;
+  z-index: 1100;
+  /* above panel */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--primary-700_toggle);
+  /* your brand color */
+  border-radius: 50%;
+  /* perfect circle */
+  background: transparent;
+  /* transparent background */
+  color: var(--toggle_black);
+  /* brand-colored icon/text */
+  cursor: pointer;
+  font-size: 20px;
+  /* suitable for ☰ icon */
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  user-select: none;
+}
 
+/* Hover and active feedback */
+.goHome-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.goHome-toggle:active {
+  transform: translateY(1px);
+  background: rgba(0, 0, 0, 0.1);
+}
 /* In overlay mode we DO NOT move the toggle with the panel.
    (If you prefer it to follow the panel edge, uncomment below)
 */
@@ -209,7 +245,9 @@ body.panel-open .panel {
 body.panel-open .panel-toggle {
   left: calc(var(--sidebar-w) + 12px);
 }
-
+body.panel-open .goHome-toggle {
+  left: calc(var(--sidebar-w) + 60px);
+}
 
 /* =========================================
    Map Dim Overlay (focus the sidebar)
@@ -510,7 +548,7 @@ input[type='file']::file-selector-button:active {
 /* @media (max-width: 640px) {
   :root { --sidebar-w: min(86vw, 420px); }
 } */
-@media (max-height: 700px) {
+@media (max-height: 933px) {
   .panel {
     overflow-y: auto;
     overflow-x: hidden;         /* 🚫 disable horizontal scrolling */

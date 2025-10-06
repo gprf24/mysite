@@ -405,13 +405,18 @@ document.getElementById('btnLasso').onclick = () => {
   }
 };
 // Cache DOM elements
-const body   = document.body;
+const body = document.body;
 const toggle = document.getElementById('togglePanel');
-const dim    = document.getElementById('mapDim');
+const home = document.getElementById('goHome');
+const dim = document.getElementById('mapDim');
 
 // --- Toggle sidebar visibility ---
 toggle?.addEventListener('click', () => {
   body.classList.toggle('panel-open');
+});
+// --- Go Home ---
+home?.addEventListener('click', () => {
+  window.location.href = `${window.location.origin}/#projects`;
 });
 
 // --- Close sidebar when clicking on dim background ---

@@ -5,25 +5,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title data-i18n="site.title">Aleksandr Ditkin — Portfolio</title>
-  <meta name="description" content="Personal site of Aleksandr Ditkin: about, skills, projects, and contact." />
+
+  <!-- Translatable meta description -->
+  <meta name="description" data-i18n="meta.description" data-i18n-attr="content"
+    content="Personal site of Aleksandr Ditkin: about, skills, projects, and contact." />
+
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0d10">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f9fc">
 
-  <!-- Favicons (place files under /img/) -->
+  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
 
   <!-- Auto-versioned CSS & JS to avoid cache issues -->
   <script>
-    const version = new Date().toISOString().slice(0, 7).replace('-', ''); // YYYYMM
+    // YYYYMM for simple cache-busting
+    const version = new Date().toISOString().slice(0, 7).replace('-', '');
     document.write(`<link rel="stylesheet" href="style.css?v=${version}">`);
     document.write(`<script defer src="script.js?v=${version}"><\/script>`);
   </script>
 </head>
 
 <body>
-  <!-- Header / Navbar -->
+  <!-- ===== Navbar ===== -->
   <header class="navbar" id="navbar">
     <a class="brand" href="#hero" aria-label="Home (no smooth scroll)">
       <img data-config-src="avatar" alt="avatar" class="brand-logo">
@@ -31,7 +36,10 @@
     </a>
 
     <nav class="nav" aria-label="Primary">
-      <button class="burger" id="burger" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+      <!-- Burger with translatable aria-label -->
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"
+        data-i18n="nav.menu" data-i18n-attr="aria-label">☰</button>
+
       <ul class="nav-links" id="nav-links">
         <li><a href="#about" data-i18n="nav.about">About</a></li>
         <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
@@ -39,23 +47,26 @@
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         <li class="divider" aria-hidden="true"></li>
         <li class="controls">
-          <!-- language buttons also set aria-label via i18n attr -->
+          <!-- Language buttons; their aria-labels are translated -->
           <button class="lang-btn" data-lang="en" data-i18n="nav.lang.en" data-i18n-attr="aria-label">EN</button>
           <button class="lang-btn" data-lang="de" data-i18n="nav.lang.de" data-i18n-attr="aria-label">DE</button>
           <button class="lang-btn" data-lang="ru" data-i18n="nav.lang.ru" data-i18n-attr="aria-label">RU</button>
-          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌓</button>
+
+          <!-- Theme toggle with translatable aria-label -->
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" data-i18n="ui.themeToggle"
+            data-i18n-attr="aria-label">🌓</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- ===== Hero ===== -->
   <section id="hero" class="section hero">
     <div class="container hero-grid">
       <div class="hero-text">
         <h1 class="title">
           <span data-i18n="hero.greeting">Hello, I’m</span>
-          <span class="accent" data-config="firstName">Aleksandr</span>
+          <span class="accent" data-config="firstName" data-i18n="hero.name"></span>
         </h1>
         <p class="subtitle" data-i18n="hero.role">
           Data & Analytics with a focus on Power BI, Dashboards, and ML.
@@ -81,18 +92,12 @@
             <img class="stat-icon" src="https://www.svgrepo.com/show/339333/machine-learning-06.svg" alt="ML logo"
               loading="lazy" decoding="async" />
           </div>
-          <!-- <div class="stat-card icon">
-            <span class="stat-num" data-config="statLanguages">3</span>
-            <span class="stat-label" data-i18n="hero.stats.languages">Languages</span>
-            <img class="stat-icon" src="https://www.svgrepo.com/show/327318/language.svg" alt="Lang logo" loading="lazy"
-              decoding="async" />
-          </div> -->
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About -->
+  <!-- ===== About ===== -->
   <section id="about" class="section">
     <div class="container grid-2">
       <div class="about-text">
@@ -103,8 +108,8 @@
           End-to-end: from robust ETL (Python, SQL) to metrics design and clear stakeholder-ready visuals.
         </p>
         <p data-i18n="about.text2">
-          Lately I’ve been delivering operations dashboards (Power BI), modeling energy consumption of e-trucks, and
-          building reliable data pipelines that make daily decisions faster and simpler.
+          Lately I’ve been delivering operations dashboards (Power BI), modeling energy consumption of e-trucks,
+          and building reliable data pipelines that make daily decisions faster and simpler.
         </p>
         <ul class="about-highlights">
           <li data-i18n="about.stack1">Power BI · DAX · Power Query · Data Modeling</li>
@@ -142,7 +147,7 @@
     </div>
   </section>
 
-  <!-- Skills -->
+  <!-- ===== Skills ===== -->
   <section id="skills" class="section alt">
     <div class="container">
       <h2 data-i18n="skills.title">Skills</h2>
@@ -171,47 +176,86 @@
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- ===== Projects ===== -->
   <section id="projects" class="section">
     <div class="container">
       <h2 data-i18n="projects.title">Selected Projects</h2>
       <div class="projects-grid">
-        <article class="project-card">
-          <div class="project-badge">BI</div>
-          <h3 data-i18n="projects.pbi.title">Operations Dashboards (Power BI)</h3>
-          <p data-i18n="projects.pbi.desc">End-to-end KPIs: order flow, SLAs, capacity & routing; DAX measures,
-            row-level security, refresh.</p>
-          <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link">View</a>
-        </article>
-        <article class="project-card">
-          <div class="project-badge">ML</div>
-          <h3 data-i18n="projects.p2.title">Energy Model for e-Trucks</h3>
-          <p data-i18n="projects.p2.desc">Route-enriched consumption modeling with time-series features and domain
-            metrics.</p>
-          <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link">View</a>
-        </article>
-        <!-- <article class="project-card">
-          <div class="project-badge">IoT</div>
-          <h3 data-i18n="projects.p3.title">EV3 Classifier</h3>
-          <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link">View</a>
-          <p data-i18n="projects.p3.desc">Real-time shape classification on LEGO EV3 with custom feature extraction and
-            MLP inference.</p>
-        </article> -->
-        <article class="project-card">
-          <div class="project-badge">AdHoc</div>
-          <h3 data-i18n="projects.p4.title">Select Zip</h3>
 
-          <p data-i18n="projects.p4.desc">Interactive web app for visualizing and managing German postal code regions.
-            Users can select ZIP areas on a map, create regions, and export them to JSON or Excel.</p>
-          <a href="selectZip/" class="project-link" aria-disabled="false" data-i18n="projects.link">View</a>
+        <!-- Project 1: Power BI (card = short; modal = detailed) -->
+        <article class="project-card" role="button" tabindex="0" aria-haspopup="dialog"
+          data-screenshot="img/projects/pbi-cover.jpg" data-link-live="#" data-link-code="#">
+          <div class="project-badge" data-i18n="badge.bi">BI</div>
+
+          <!-- Short (card) -->
+          <h3 class="card-title" data-i18n="projects.pbi.title">Operations Dashboards (Power BI)</h3>
+          <p class="card-desc" data-i18n="projects.pbi.desc">End-to-end KPIs: order flow, SLAs, capacity & routing; DAX
+            measures, row-level security, refresh.</p>
+          <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link" data-ignore-modal>View</a>
+
+          <!-- Detailed (modal) -->
+          <h4 class="modal-title" data-i18n="projects.pbi.modal.title" hidden></h4>
+          <div class="modal-desc" data-i18n="projects.pbi.modal.desc" hidden>
+
+          </div>
+          <span class="modal-tech" data-i18n="projects.pbi.modal.tech" hidden></span>
+          <span class="modal-live-label" data-i18n="projects.modal.live" hidden></span>
+          <span class="modal-code-label" data-i18n="projects.modal.code" hidden></span>
+
+          <!-- Optional per-card "tech" (used if you prefer card-level tech in modal fallback) -->
+          <span class="card-tech" data-i18n="projects.pbi.tech" hidden></span>
         </article>
 
+        <!-- Project 2: ML -->
+        <article class="project-card" role="button" tabindex="0" aria-haspopup="dialog"
+          data-screenshot="img/projects/etrucks-cover.png" data-link-live="#" data-link-code="#">
+          <div class="project-badge" data-i18n="badge.ml">ML</div>
+
+          <!-- Short (card) -->
+          <h3 class="card-title" data-i18n="projects.p2.title">Energy Model for e-Trucks</h3>
+          <p class="card-desc" data-i18n="projects.p2.desc">Route-enriched consumption modeling with time-series
+            features and domain metrics.</p>
+          <a href="#" class="project-link" aria-disabled="true" data-i18n="projects.link" data-ignore-modal>View</a>
+
+          <!-- Detailed (modal) -->
+          <h4 class="modal-title" data-i18n="projects.p2.modal.title" hidden></h4>
+          <div class="modal-desc" data-i18n="projects.p2.modal.desc" hidden>
+
+          </div>
+          <span class="modal-tech" data-i18n="projects.p2.modal.tech" hidden></span>
+          <span class="modal-live-label" data-i18n="projects.modal.live" hidden></span>
+          <span class="modal-code-label" data-i18n="projects.modal.code" hidden></span>
+
+        </article>
+
+        <!-- Project 3: Select Zip -->
+        <article class="project-card" role="button" tabindex="0" aria-haspopup="dialog"
+          data-screenshot="img/projects/selectzip-cover.png" data-link-live="selectZip/"
+          data-link-code="https://github.com/gprf24/mysite/tree/main/selectZip">
+          <div class="project-badge" data-i18n="badge.adhoc">AdHoc</div>
+
+          <!-- Short (card) -->
+          <h3 class="card-title" data-i18n="projects.p4.title">Select Zip</h3>
+          <p class="card-desc" data-i18n="projects.p4.desc">Interactive web app for visualizing and managing German
+            postal code regions. Users can select ZIP areas on a map, create regions, and export them to JSON or Excel.
+          </p>
+          <a href="selectZip/" class="project-link" data-i18n="projects.link" data-ignore-modal>View</a>
+
+          <!-- Detailed (modal) -->
+          <h4 class="modal-title" data-i18n="projects.p4.modal.title" hidden></h4>
+          <div class="modal-desc" data-i18n="projects.p4.modal.desc" hidden></div>
+          <span class="modal-tech" data-i18n="projects.p4.modal.tech" hidden></span>
+          <span class="modal-live-label" data-i18n="projects.modal.live" hidden></span>
+          <span class="modal-code-label" data-i18n="projects.modal.code" hidden></span>
+
+          <span class="card-tech" data-i18n="projects.p4.tech" hidden></span>
+        </article>
 
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- ===== Contact ===== -->
   <section id="contact" class="section alt">
     <div class="container grid-2">
       <div>
@@ -243,6 +287,37 @@
       <span class="muted" data-i18n="footer.rights">All rights reserved.</span>
     </div>
   </footer>
+
+  <!-- ===== Project modal (single reusable instance) ===== -->
+  <div class="proj-backdrop" id="projModal" role="dialog" aria-modal="true" aria-labelledby="projTitle"
+    aria-hidden="true">
+    <div class="proj-dialog" role="document">
+      <!-- Close button with translatable aria-label -->
+      <button class="proj-close" type="button" aria-label="Close" data-i18n="ui.close"
+        data-i18n-attr="aria-label">✕</button>
+
+      <div class="proj-media">
+        <img id="projImg" alt="">
+      </div>
+
+      <div class="proj-content">
+        <div class="proj-header">
+          <h3 id="projTitle"></h3>
+        </div>
+
+        <div class="proj-body">
+          <p id="projDesc"></p>
+          <span id="projTech" class="proj-tech"></span>
+        </div>
+
+        <div class="proj-footer">
+          <a id="projLive" href="#" target="_blank" class="btn primary">Live</a>
+          <a id="projCode" href="#" target="_blank" class="btn ghost">Code</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

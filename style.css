@@ -285,7 +285,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border: none;
   cursor: pointer;
   line-height: 1.1;
- 
+
   transition: background var(--t-fast) ease, transform var(--t-fast) ease, box-shadow var(--t-fast) ease;
 }
 
@@ -786,6 +786,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .project-badge {
   position: absolute;
+  min-width: 33px;
+  width: fit-content;
   top: 10px;
   right: 10px;
   font-size: 12px;
@@ -905,4 +907,373 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   to {
     transform: translateX(120%);
   }
+}
+
+/* ===========================================================
+   Project Modal — Big, Polished & Zoomable (token-based)
+   =========================================================== */
+
+/* --- Backdrop --- */
+.proj-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.69);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 1000;
+}
+
+.proj-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Dialog --- */
+.proj-dialog {
+  width: min(1200px, 96vw);
+  height: 50vh;
+  /* tall modal */
+  background: var(--card);
+  /* unified background via tokens */
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow, 0 40px 100px rgba(0, 0, 0, .6));
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(380px, 1fr);
+  /* more room for the image */
+  gap: 0;
+  position: relative;
+}
+
+/* --- Close Button --- */
+.proj-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 0;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.2s ease;
+  z-index: 200;
+  /* keep on top */
+}
+
+.proj-close:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* --- Image (media) area --- */
+.proj-media {
+  position: relative;
+  background: inherit;
+  /* same bg as dialog */
+  display: flex;
+  place-items: center;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  overflow: hidden;
+  /* required for zoom/pan */
+  border-right: 1px solid var(--border);
+  /* subtle divider */
+  z-index: 1;
+}
+
+/* Image defaults: contain full picture, allow transform */
+.proj-media img {
+  max-height: 100%;
+  max-width: 100%;
+
+  width: auto;
+
+  height: auto;
+
+  display: block;
+  transition: transform 0.25s ease;
+  user-select: none;
+  touch-action: none;
+  /* enables pinch-zoom */
+  transform-origin: center center;
+  cursor: default;
+  background: transparent;
+  /* avoid mismatched letterbox color */
+}
+
+/* Cursor states while panning (toggled by JS) */
+/* .proj-media img.grab {
+  cursor: grab;
+}
+
+.proj-media img.grabbing {
+  cursor: grabbing;
+} */
+
+/* --- Optional zoom controls (if you add them later) --- */
+.zoom-controls {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.zoom-controls button {
+  background: var(--glass, rgba(255, 255, 255, 0.15));
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.zoom-controls button:hover {
+  background: var(--glass, rgba(255, 255, 255, 0.25));
+}
+
+/* --- Content (right column) --- */
+.proj-content {
+  background: inherit;
+  /* same bg as dialog */
+  display: flex;
+  /* so we can anchor links block */
+  flex-direction: column;
+  position: relative;
+  /* for absolute .proj-links */
+  padding: 28px;
+  padding-bottom: 90px;
+  /* reserve space for buttons */
+  overflow-y: auto;
+  font-size: 16px;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand, #5b71ef) transparent;
+  z-index: 1;
+}
+
+.proj-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.proj-content::-webkit-scrollbar-thumb {
+  background: var(--brand, #5b71ef);
+  border-radius: 8px;
+}
+
+/* Title & description */
+.proj-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 26px;
+  line-height: 1.3;
+}
+
+.proj-content p {
+  margin: 0 0 16px 0;
+  font-size: 17px;
+}
+
+/* --- Tech info --- */
+.proj-meta {
+  margin: 10px 0 18px 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+}
+
+.proj-meta dt {
+  opacity: 0.8;
+}
+
+.proj-meta dd {
+  margin: 0;
+}
+
+/* --- Links (Live / Code) — bottom-left area of right column --- */
+.proj-links {
+  position: absolute;
+  left: 28px;
+  /* inward from left edge */
+  bottom: 24px;
+  /* above bottom edge */
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* left aligned */
+}
+
+.proj-links .btn {
+  padding: 10px 14px;
+  border-radius: 102px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: var(--glass, rgba(255, 255, 255, 0.06));
+  color: var(--text);
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.proj-links .btn:hover {
+  background: var(--glass, rgba(255, 255, 255, 0.12));
+}
+
+.proj-links .btn.primary {
+  background: linear-gradient(180deg, var(--brand, #5b71ef), var(--brand-2, #c099ff));
+  border: 0;
+  color: #111;
+}
+
+/* --- Optional badges under the title (if you keep them) --- */
+.proj-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 14px 0;
+}
+
+.proj-badge {
+  display: inline-block;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  background: var(--glass, rgba(255, 255, 255, 0.08));
+  border: 1px solid var(--border);
+  color: var(--text);
+  backdrop-filter: blur(6px);
+}
+
+.proj-badge.live {
+  background: linear-gradient(180deg, var(--brand, #5b71ef), var(--brand-2, #c099ff));
+  color: #111;
+  border: none;
+}
+
+.proj-badge.code {
+  background: var(--glass, rgba(255, 255, 255, 0.1));
+  color: var(--text);
+}
+
+/* --- Project cards (outside modal; unchanged) --- */
+.project-card {
+  cursor: pointer;
+}
+
+.project-card:focus {
+  outline: 2px solid var(--brand, #5b71ef);
+  outline-offset: 3px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.project-actions .project-details {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--glass, rgba(255, 255, 255, 0.06));
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* --- Responsive layout --- */
+@media (max-width: 1024px) {
+  .proj-dialog {
+    width: 96vw;
+    grid-template-columns: 1fr;
+    height: 90vh;
+  }
+
+  /* .proj-media { max-height: 50vh; } */
+  .proj-links {
+    left: 20px;
+    bottom: 18px;
+    gap: 10px;
+  }
+}
+/* ===========================================================
+   Project Modal — Structured scrollable layout
+   =========================================================== */
+
+.proj-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  background: inherit;
+  color: var(--text);
+  position: relative;
+}
+
+/* --- Fixed top section (title) --- */
+.proj-header {
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.proj-header h3 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.3;
+}
+
+/* --- Scrollable middle section (desc + tech) --- */
+.proj-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 24px 28px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand, #5b71ef) transparent;
+}
+
+.proj-body::-webkit-scrollbar {
+  width: 8px;
+}
+.proj-body::-webkit-scrollbar-thumb {
+  background: var(--brand, #5b71ef);
+  border-radius: 8px;
+}
+
+.proj-body p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+.proj-body .proj-tech {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* --- Fixed bottom section (buttons) --- */
+.proj-footer {
+  padding: 18px 28px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  background: inherit;
 }
